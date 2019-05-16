@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.Function">
+    <!--模糊查询-->
+    <select id="find" resultType="hero">
+    <bind name="Para_name" value="'%'+name+'%'"/><!--模糊查询最好做法-->
+        select id,name,money from hero
+        <where>
+        <if test="id != null and id != ''">
+            and id=#{id}
+        </if>
+        <if test="name!=null and name!=''">
+             and name like concat('%',#{Para_name},'%')
+        </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="hero">
+        select * from hero
+    </select>
+
+    <insert id="insert" >
+        insert into hero(id,name,money) values(#{0},#{1},#{2})
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        delete from hero where id=#{id}
+    </delete>
+
+    <update id="update">
+        update hero set name=#{1},money=#{2} where id=#{0}
+    </update>
+
+    <update id="transf">
+    update hero set money=money-#{2} where id=#{0};
+    update hero set money=money+#{2} where id=#{1};
+    </update>
+
+    <select id="findById" parameterType="Integer" resultType="hero">
+        select * from hero where id=#{id}
+    </select>
+    <!--查询登录用户是否存在-->
+    <select id="findUser" resultType="heroLogin" parameterType="String">
+        select * from herologin where userId=#{userId}
+    </select>
+    <!--注册新用户-->
+    <insert id="insertLogin">
+        insert into herologin(userId,password) values(#{userId},#{password})
+    </insert>
+
+    <!--分页！！-->
+    <select id="findCount" resultType="int">
+        select count(*) from hero
+    </select><!--用假分页，没用到-->
+    <select id="fenye" resultType="hero" parameterType="Map">
+        select id,name,money from hero limit #{start},#{rows}
+    </select>
+</mapper>
