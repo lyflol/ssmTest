@@ -3,10 +3,11 @@ package com.dao;
 import com.model.Hero;
 import com.model.HeroLogin;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
-
+@Repository
 public interface Function {
     public List<Hero> find(@Param("id")Integer id,@Param("name") String name);//根据条件查询英雄信息
     public List<Hero> findAll();

@@ -36,6 +36,7 @@ function denglu() {
     }
 }
 
+
 //注册按钮打开注册对话窗口
 function zhuce(){
     $("#denglu").dialog("close");
@@ -84,7 +85,7 @@ function zhuceA(){
 //模糊查询，id name动态sql拼接
 function find(){
     var id=$("#findid").val();
-    var name=$("#findname").val();
+    var name=$('#findname').combobox('getText');//这样才能获取自己在文本框输入的值，否则只能选择下拉列表里有的值进行查询
     $("#Herotable").datagrid({
         queryParams:{"id":id,"name":name},
         url:"find",

@@ -22,9 +22,7 @@ pageEncoding="UTF-8" %>
             font-size: 20px;
             color: blue;
         }
-        body{
-            background: url("/denglu.jpg");
-        }
+
 
     </style>
 </head>

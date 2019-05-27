@@ -18,11 +18,14 @@
            color: blue;
         }
         body{
-            background: url("/denglu.jpg");
+            background: url("/image/denglu.jpg");
         }
     </style>
 </head>
 <body><div align="center">
+   <div align="right">
+       <label style="font-size: 20px;color: #6ab8f7;">欢迎尊敬的:<%= session.getAttribute("user")%><b style="color: #eaf2ff;">|</b><a href="/app/out" style="color: #b52b27">退出登录</a> </label>
+   </div>
         <table id="Herotable" title="超级英雄" class="easyui-datagrid" style="width:800px" toolbar="#toolbar">
             <thead align="center">
             <tr>
@@ -41,12 +44,8 @@
             <label style="font-size: 15px;color: blueviolet">ID:</label>
             <input id="findid" style="height: 20px;width:50px;padding-bottom: 5px;border-radius:5px;border:1px solid green" type="text" />
             <label  style="font-size: 15px;color: blueviolet">Name:</label>
-            <select id="findname" style="height: 25px;width:100px;border-radius:10px;border:1px solid green" class="easyui-combobox">
-             <option>侠</option>
-            <option>队长</option>
-            <option>人</option>
-            <option>神</option>
-            </select>
+            <input id="findname"  style="height: 25px;width:100px;border-radius:10px;border:1px solid green" />
+
             <a href="/app/allHero" class="easyui-linkbutton" iconCls="icon-reload" plain="true">显示全部</a>
         </div>
     <%--创建表单对话框用于编辑和新增--%>
@@ -92,7 +91,6 @@
         pagination:true
 
     });
-
     function pagerFilter(data) {
         if (typeof data.length == 'number' && typeof data.splice == 'function') {
             data = {
@@ -123,6 +121,21 @@
         data.rows = (data.originalRows.slice(start, end));
         return data;
     }
+    $('#findname').combobox({
+        valueField:'label',
+        textField:'value',
+        data:[{
+            label: '人',
+            value: '人'
+        },{
+            label: '侠',
+            value: '侠'
+        },{
+            label: '神',
+            value: '神'
+        }]
+    });
+
 </script>
 </body>
 </html>

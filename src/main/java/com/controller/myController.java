@@ -14,6 +14,8 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/app")
 public class myController {
@@ -23,7 +25,7 @@ public class myController {
     //登陆检查
     @RequestMapping("/checklogin")
     @ResponseBody
-    public Map<String,Object> checklogin(@RequestParam String username , @RequestParam String password){
+    public Map<String,Object> checklogin(@RequestParam String username , @RequestParam String password ,HttpSession session){
         String str=password;
         Map<String,Object> resultMap = new HashMap<String, Object>();
         HeroLogin hl=fc.findUser(username);
@@ -33,10 +35,15 @@ public class myController {
             resultMap.put("result","failB");
         }else {
             resultMap.put("result","success");
+            session.setAttribute("user",username);
         }
         return resultMap;
     }
-
+    @RequestMapping("/out")
+    public String out(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/";
+    }
     //注册业务处理
     @RequestMapping("/checkZhuce")
     @ResponseBody
@@ -65,11 +72,13 @@ public class myController {
     public List<Hero> findAll(){
         List<Hero> heroList=fc.findAll();
         return heroList;
+
     }
     //模糊查询
     @RequestMapping("/find")
     @ResponseBody
     public List<Hero> find(@RequestParam("id") Integer id,@RequestParam("name")String name){
+        System.out.println("执行查询了");
         List<Hero> heroList=fc.find(id,name);
         return  heroList;
     }

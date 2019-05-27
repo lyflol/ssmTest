@@ -19,15 +19,13 @@
   <servlet-mapping>
     <servlet-name>Dispatcher</servlet-name>
     <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  <!--静态资源的引入-->
-  <servlet-mapping>
-    <servlet-name>Dispatcher</servlet-name>
-    <url-pattern>*.js</url-pattern>
+    <!--如此配置后，会把所有的请求都会进行拦截，交给spring去处理
+    。而spring所有请求的URL都是在controller中使用注解@RequestMapping标明，
+    所以这样的情况下访问静态资源是访问不到的。静态资源（图片，js文件，css文件）解决方法在spring-mvc中-->
   </servlet-mapping>
 <!--过滤器-->
 <filter>
-  <filter-name>ecodingFilter</filter-name>
+  <filter-name>encodingFilter</filter-name>
   <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
   <init-param>
     <param-name>encoding</param-name>
@@ -35,7 +33,7 @@
   </init-param>
 </filter>
  <filter-mapping>
-   <filter-name>ecodingFilter</filter-name>
+   <filter-name>encodingFilter</filter-name>
    <url-pattern>/</url-pattern>
  </filter-mapping>
 </web-app>
