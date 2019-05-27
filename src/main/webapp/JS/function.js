@@ -194,7 +194,7 @@ function deleteHero() {
 
 //转账操作先打开转账界面
 function transf() {
-    $("#transdialog").dialog("open").dialog("setTitle","添加新英雄");
+    $("#transdialog").dialog("open").dialog("setTitle","英雄交易");
     url="transf";
 }
 function transfer() {
